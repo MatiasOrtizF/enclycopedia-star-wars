@@ -12,6 +12,17 @@ const styles = StyleSheet.create({
     },
     buttons: {
         margin: 15,
+    },
+    moreInfoText: {
+        fontSize:16,
+        marginVertical: 5,
+        fontWeight:500,
+        color: "white"
+    },
+    moreInfoTitle: {
+        fontSize:18, 
+        fontWeight:800,
+        color:"#8AC5D3"
     }
 });
 

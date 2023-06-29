@@ -4,7 +4,7 @@ import { ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } 
 import styles from './styles'
 import Constants  from 'expo-constants'
 
-export default function App({navigation}) {
+export default function Main ({navigation}) {
     const [datas , setDatas] = useState([])
     const [dataLoaded , setDataLoaded] = useState(false)
     const [dataApi , setDataAPi] = useState([])
@@ -35,6 +35,15 @@ export default function App({navigation}) {
             })
     }
 
+    const menuItems = [
+        {text: "Peole"},
+        {text: "Planets"},
+        {text: "Films"},
+        {text: "Species"},
+        {text: "Vehicles"},
+        {text: "Films"}
+    ]
+
     return (
         <View style={{marginTop: Constants.statusBarHeight}}>
             <StatusBar style="auto" />
@@ -48,28 +57,15 @@ export default function App({navigation}) {
                                 />
                             </View>
                             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                <TouchableOpacity style={styles.buttons}>
-                                    <Text style={{color:"white" , fontWeight:600 , fontSize:18}}>Peole</Text>
+                                {menuItems.map((item , index)=> (
+                                <TouchableOpacity style={styles.buttons} key={index}>
+                                    <Text style={{color:"white" , fontWeight:600 , fontSize:18}}>{item.text}</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttons}>
-                                    <Text style={{color:"white" , fontWeight:600 , fontSize:18}}>Planets</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttons}>
-                                    <Text style={{color:"white" , fontWeight:600 , fontSize:18}}>Films</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttons}>
-                                    <Text style={{color:"white" , fontWeight:600 , fontSize:18}}>Species</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttons}>
-                                    <Text style={{color:"white" , fontWeight:600 , fontSize:18}}>Vehicles</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttons}>
-                                    <Text style={{color:"white" , fontWeight:600 , fontSize:18}}>Films</Text>
-                                </TouchableOpacity>
+                                ))}
                             </ScrollView>
                             <View style={styles.container}>
-                                {datas.map((data) => (
-                                    <View style={styles.box}>
+                                {datas.map((data , index) => (
+                                    <View style={styles.box} key={index}>
                                         <Text style={{color:"white" , fontWeight:700 , fontSize:18}}>{data.name}</Text>
                                         <Text style={{color:"white" , fontWeight:500 , fontSize:16}}>{data.gender}</Text>
                                         <View style={{flexDirection:"row" , justifyContent:"space-between"}}>
