@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { ImageBackground, ScrollView, Text , TouchableOpacity, View , ActivityIndicator} from 'react-native';
+import { ImageBackground, ScrollView, Text , TouchableOpacity, View } from 'react-native';
 import styles from './styles'
-import Constants  from 'expo-constants'
+import Loading from './Loading'
 
 export default function Film ({route , navigation}) {
     const {filmInfo} = route.params
@@ -14,7 +13,6 @@ export default function Film ({route , navigation}) {
     const [vehiclesName , setVehiclesName] = useState([])
     const [speciesName, setSpeciesName] = useState([])
 
-    const [loading , setLoading] = useState(true)
     const [uploadedDataFilmInfo, setUploadedDataFilmInfo] = useState(false)
     const [uploadedCharactersName , setUploadedCharactersName] = useState(false)
     const [uploadedPlanetsName , setUploadedPlanetsName] = useState(false)
@@ -198,7 +196,7 @@ export default function Film ({route , navigation}) {
                             <View style={{paddingVertical:5}}>
                                 <Text style={styles.moreInfoTitle}>Characters:</Text>
                                     {charactersName.map((character , index) => (
-                                        <TouchableOpacity style={{marginVertical:1}} key={index}>
+                                        <TouchableOpacity onPress={()=>navigation.navigate('MoreInfo', {peopleInfo: character.url})} style={{marginVertical:1}} key={index}>
                                             <Text style={{color:"white" , fontSize:16 , fontWeight:600}} >{character.name}</Text>
                                         </TouchableOpacity>
                                     ))}
@@ -206,21 +204,23 @@ export default function Film ({route , navigation}) {
                             <View style={{paddingVertical:5}}>
                                 <Text style={styles.moreInfoTitle}>Planets:</Text>
                                     {planetsName.map((planet , index) => (
-                                        <TouchableOpacity style={{marginVertical:1}} key={index}>
+                                        <TouchableOpacity onPress={()=>navigation.navigate('Planet', {planetInfo: planet.url})} style={{marginVertical:1}} key={index}>
                                             <Text style={{color:"white" , fontSize:16 , fontWeight:600}} >{planet.name}</Text>
                                         </TouchableOpacity>
                                     ))}
                             </View>
                             <View style={{paddingVertical:5}}>
                                 <Text style={styles.moreInfoTitle}>Starships:</Text>
-                                    {starshipsName.map((starship) => (
-                                        <Text style={{color:"white" , fontSize:15 , fontWeight:600}}>{starship.name}</Text>
+                                    {starshipsName.map((starship , index) => (
+                                        <TouchableOpacity onPress={()=>navigation.navigate('Starship', {starshipInfo: starship.url})} style={{marginVertical:1}} key={index}>
+                                            <Text style={{color:"white" , fontSize:15 , fontWeight:600}}>{starship.name}</Text>
+                                        </TouchableOpacity>
                                     ))}
                             </View>
                             <View style={{paddingVertical:5}}>
                                 <Text style={styles.moreInfoTitle}>Vehicles:</Text>
                                     {vehiclesName.map((vehicle) => (
-                                        <TouchableOpacity style={{marginVertical:1}} >
+                                        <TouchableOpacity onPress={()=>navigation.navigate('Vehicle', {vehicleInfo: vehicle.url})} style={{marginVertical:1}} >
                                             <Text style={{color:"white" , fontSize:16 , fontWeight:600}}>{vehicle.name}</Text>
                                         </TouchableOpacity>
                                     ))}
@@ -228,7 +228,9 @@ export default function Film ({route , navigation}) {
                             <View style={{paddingVertical:5}}>
                                 <Text style={styles.moreInfoTitle}>Species:</Text>
                                     {speciesName.map((specie) => (
-                                        <Text style={{color:"white" , fontSize:15 , fontWeight:600}}>{specie.name}</Text>
+                                        <TouchableOpacity onPress={()=>navigation.navigate('Specie', {specieInfo: specie.url})} style={{marginVertical:1}} >
+                                            <Text style={{color:"white" , fontSize:15 , fontWeight:600}}>{specie.name}</Text>
+                                        </TouchableOpacity>
                                     ))}
                             </View>
                         </View>
@@ -236,6 +238,6 @@ export default function Film ({route , navigation}) {
                 </ScrollView>   
             </ImageBackground>
         :
-            <ActivityIndicator size="large" color="#0000ff" />
+            <Loading/>
     );
 }

@@ -1,39 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { ImageBackground, ScrollView, Text , TouchableOpacity, View , ActivityIndicator} from 'react-native';
+import { ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles'
-import Constants  from 'expo-constants'
+import Loading from './Loading'
 
-export default function Planet ({route , navigation}) {
-    const {planetInfo} = route.params
+export default function Vehicle ({route , navigation}) {
+    const {vehicleInfo} = route.params
 
-    const [DataPlanetInfo , setDataPlanetInfo] = useState([])
+    const [DataVehicleInfo , setDataVehicleInfo] = useState([])
     const [peopleName , setPeopleName] = useState([])
 
-    const [uploadedDataPlanetInfo, setUploadedDataPlanetInfo] = useState(false)
+    const [uploadedDataVehicleInfo, setUploadedDataVehicleInfo] = useState(false)
     const [loading , setLoading] = useState(true)
 
     useEffect(() => {
         callApi();
-    } , []);
+        setDataVehicleInfo([]);
+        setPeopleName([]);
+    } , [vehicleInfo]);
 
     useEffect(() => {
-        if(uploadedDataPlanetInfo) {
-            residents();
+        if(uploadedDataVehicleInfo) {
+            pilots();
         }
-    } , [uploadedDataPlanetInfo]);
+    } , [uploadedDataVehicleInfo]);
 
     callApi = () => {
-        fetch(planetInfo)
+        fetch(vehicleInfo)
             .then(response=>response.json())
             .then(data=> {
-                setDataPlanetInfo(data)
-                setUploadedDataPlanetInfo(true)
+                setDataVehicleInfo(data)
+                setUploadedDataVehicleInfo(true)
             })
     }
 
-    callApiResidents = (resident) => {
-        fetch(resident)
+    callApiPilots= (pilots) => {
+        fetch(pilots)
             .then(response=>response.json())
             .then(data=> {
                 setPeopleName(prevState => ([
@@ -43,13 +44,13 @@ export default function Planet ({route , navigation}) {
                     }
                 ]))
                 setLoading(false)
-            })
+        })
     }
 
-    residents = () => {
-        if(DataPlanetInfo.residents.length>0) {
-            DataPlanetInfo.residents.map((resident)=> (
-                callApiResidents(resident)
+    pilots = () => {
+        if(DataVehicleInfo.pilots.length>0) {
+            DataVehicleInfo.pilots.map((pilot)=> (
+                callApiPilots(pilot)
             ))
         } else {
             setLoading(false)
@@ -66,50 +67,53 @@ export default function Planet ({route , navigation}) {
         "https://swapi.dev/api/films/6/" : "Revenge of the Sith",
     }
 
-    const infoPlanet = [
-        { title: 'Name', value: DataPlanetInfo.name },
-        { title: 'Rotation period', value: DataPlanetInfo.rotation_period },
-        { title: 'orbital period', value: DataPlanetInfo.orbital_period },
-        { title: 'diameter', value: DataPlanetInfo.diameter },
-        { title: 'climate', value: DataPlanetInfo.climate },
-        { title: 'gravity', value: DataPlanetInfo.gravity },
-        { title: 'terrain', value: DataPlanetInfo.terrain },
-        { title: 'surface water', value: DataPlanetInfo.surface_water },
-        { title: 'Population' , value: DataPlanetInfo.population}
+    const infoVehicle = [
+        { title: 'Name', value: DataVehicleInfo.name },
+        { title: 'Model', value: DataVehicleInfo.model},
+        { title: 'Manufacturer', value: DataVehicleInfo.manufacturer },
+        { title: 'Cost in credits', value: DataVehicleInfo.cost_in_credits },
+        { title: 'Length', value: DataVehicleInfo.length },
+        { title: 'Max atmosphering speed', value: DataVehicleInfo.max_atmosphering_speed },
+        { title: 'Crew', value: DataVehicleInfo.crew },
+        { title: 'Passengers', value: DataVehicleInfo.passengers },
+        { title: 'Cargo capacity' , value: DataVehicleInfo.cargo_capacity },
+        { title: 'Consumables' , value: DataVehicleInfo.consumables },
+        { title: 'Vehicle_class' , value: DataVehicleInfo.vehicle_class }
     ]
+
 
     return (
         loading ? 
-            <ActivityIndicator size="large" color="#0000ff" />
+            <Loading/>
         :
-                <ImageBackground style={{flex:1}} source={{uri:"https://e0.pxfuel.com/wallpapers/260/732/desktop-wallpaper-apple-iphone-14-pro-14-pro-max.jpg"}}>
+            <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/617/754/desktop-wallpaper-minimalist-phone-star-wars-minimal-star-trek.jpg"}}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
-                        {infoPlanet.map((planet, index) => (
+                        {infoVehicle.map((vehicle, index) => (
                             <Text style={styles.moreInfoText} key={index}>
                                 <Text style={styles.moreInfoTitle}>
-                                    {planet.title}:{'\u00A0'}
+                                    {vehicle.title}:{'\u00A0'}
                                 </Text>
-                                {planet.value}
+                                {vehicle.value}
                             </Text>
                         ))}
-                        {/* <TouchableOpacity onPress={()=>navigation.navigate('Planet', {planetInfo: DataPlanetInfo.homeworld})} style={{backgroundColor:"#8AC5D3" , alignSelf:"flex-start" , padding:7 , borderRadius:7 , marginVertical: 5}}>
+                        {/* <TouchableOpacity onPress={()=>navigation.navigate('Planet', {planetInfo: DataVehicleInfo.homeworld})} style={{backgroundColor:"#8AC5D3" , alignSelf:"flex-start" , padding:7 , borderRadius:7 , marginVertical: 5}}>
                             <Text style={{color:"black" , fontWeight:700 , fontSize:16}}>Home World</Text>
                         </TouchableOpacity> */}
                         <View>
                             <View style={{paddingVertical:5}}>
                                 <Text style={styles.moreInfoTitle}>Films:</Text>
-                                    {DataPlanetInfo.films.map((film , index) => (
-                                        <TouchableOpacity style={{marginVertical:1}} key={index}>
+                                    {DataVehicleInfo.films.map((film , index) => (
+                                        <TouchableOpacity onPress={()=>navigation.navigate('Film', {filmInfo: film})} style={{marginVertical:1}} key={index}>
                                             <Text style={{color:"white" , fontSize:16 , fontWeight:600}} >{nameFilms[film]}</Text>
                                         </TouchableOpacity>
                                     ))}
                             </View>
                             <View style={{paddingVertical:5}}>
-                                <Text style={styles.moreInfoTitle}>Residents:</Text>
+                                <Text style={styles.moreInfoTitle}>Pilots:</Text>
                                     {peopleName.map((people) => (
                                         <TouchableOpacity  onPress={()=>navigation.navigate('MoreInfo', {peopleInfo: people.url})} style={{marginVertical:1}} >
-                                            <Text style={{color:"white" , fontSize:16 , fontWeight:600}}>{people.name} {people.url}</Text>
+                                            <Text style={{color:"white" , fontSize:16 , fontWeight:600}}>{people.name}</Text>
                                         </TouchableOpacity>
                                     ))}
                             </View>

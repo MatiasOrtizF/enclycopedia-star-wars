@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View , ActivityIndicator} from 'react-native';
+import { ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles'
-import Constants  from 'expo-constants'
+import Loading from './Loading'
 
 export default function MoreInfo ({route , navigation}) {
     const {peopleInfo} = route.params
@@ -12,7 +11,6 @@ export default function MoreInfo ({route , navigation}) {
     const [speciesName, setSpeciesName] = useState([])
     const [starshipsName , setStarshipsName] = useState([])
 
-    const [loading, setLoading] = useState(true);
     const [uploadedDataPeopleInfo, setUploadedDataPeopleInfo] = useState(false);
     const [uploadedVehiclesName , setUploadedVehiclesName] = useState(false)
     const [uploadedSpeciesName, setUploadedSpeciesName ] = useState(false)
@@ -189,6 +187,6 @@ export default function MoreInfo ({route , navigation}) {
                 </ScrollView>   
             </ImageBackground>
         :
-            <ActivityIndicator size="large" color="#0000ff" />
+            <Loading/>
     );
 }

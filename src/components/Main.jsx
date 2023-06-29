@@ -8,7 +8,6 @@ export default function Main ({navigation}) {
     const [datas , setDatas] = useState([])
     const [dataLoaded , setDataLoaded] = useState(false)
     const [dataApi , setDataAPi] = useState([])
-    const [pageNumber , setPageNumber] = useState(1);
 
     useEffect(() => {
         callApiFirst();
@@ -45,10 +44,11 @@ export default function Main ({navigation}) {
     ]
 
     return (
-        <View style={{marginTop: Constants.statusBarHeight}}>
+        <>
             <StatusBar style="auto" />
             {dataLoaded ?
-                <ImageBackground source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/885/847/desktop-wallpaper-22-de-star-wars-pro-seu-celular-star-wars-mobile.jpg"}}>
+                <View style={{marginTop: Constants.statusBarHeight}}>
+                    <ImageBackground source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/885/847/desktop-wallpaper-22-de-star-wars-pro-seu-celular-star-wars-mobile.jpg"}}>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View style={styles.container}>
                                 <TextInput
@@ -94,12 +94,13 @@ export default function Main ({navigation}) {
                                 </View>
                             </View>
                         </ScrollView>
-                </ImageBackground>
+                    </ImageBackground>
+                </View>
             :
-            <View style={{alignItems:"center" , justifyContent:"center"}}>
-                <ImageBackground style={{width:"100%" , height: 400}} source={{uri:"https://i0.wp.com/codemyui.com/wp-content/uploads/2018/07/Lightsaber-Progress-Bar.gif?w=880&ssl=1"}}/>
-            </View>
+                <View style={{flex:1 , alignItems:"center" , justifyContent:"center" , backgroundColor:"white"}}>
+                    <ImageBackground style={{width:"100%" , height: 400}} source={{uri:"https://i0.wp.com/codemyui.com/wp-content/uploads/2018/07/Lightsaber-Progress-Bar.gif?w=880&ssl=1"}}/>
+                </View>
             }
-        </View>
+        </>
     );
 }

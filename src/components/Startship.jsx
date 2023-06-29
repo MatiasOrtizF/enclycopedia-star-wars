@@ -1,35 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View , ActivityIndicator } from 'react-native';
+import { ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles'
-import Constants  from 'expo-constants'
+import Loading from './Loading'
 
-export default function Vehicle ({route , navigation}) {
-    const {vehicleInfo} = route.params
+export default function Starship ({route , navigation}) {
+    const {starshipInfo} = route.params
 
-    const [DataVehicleInfo , setDataVehicleInfo] = useState([])
+    const [DataStarshipInfo , setDataStarshipInfo] = useState([])
     const [peopleName , setPeopleName] = useState([])
 
-    const [uploadedDataVehicleInfo, setUploadedDataVehicleInfo] = useState(false)
+    const [uploadedDataStarshipInfo, setUploadedDataStarshipInfo] = useState(false)
     const [loading , setLoading] = useState(true)
 
     useEffect(() => {
         callApi();
-        pilots();
-    } , []);
+        setDataStarshipInfo([]);
+        setPeopleName([]);
+    } , [starshipInfo]);
 
     useEffect(() => {
-        if(uploadedDataVehicleInfo) {
-            residents();
+        if(uploadedDataStarshipInfo) {
+            pilots();
         }
-    } , [uploadedDataVehicleInfo]);
+    } , [uploadedDataStarshipInfo]);
 
     callApi = () => {
-        fetch(vehicleInfo)
+        fetch(starshipInfo)
             .then(response=>response.json())
             .then(data=> {
-                setDataVehicleInfo(data)
-                setUploadedDataVehicleInfo(true)
+                setDataStarshipInfo(data)
+                setUploadedDataStarshipInfo(true)
             })
     }
 
@@ -48,8 +48,8 @@ export default function Vehicle ({route , navigation}) {
     }
 
     pilots = () => {
-        if(DataVehicleInfo.pilots.length>0) {
-            DataVehicleInfo.pilots.map((pilot)=> (
+        if(DataStarshipInfo.pilots.length>0) {
+            DataStarshipInfo.pilots.map((pilot)=> (
                 callApiPilots(pilot)
             ))
         } else {
@@ -67,29 +67,31 @@ export default function Vehicle ({route , navigation}) {
         "https://swapi.dev/api/films/6/" : "Revenge of the Sith",
     }
 
-    const infoVehicle = [
-        { title: 'Name', value: DataVehicleInfo.name },
-        { title: 'Model', value: DataVehicleInfo.model},
-        { title: 'Manufacturer', value: DataVehicleInfo.manufacturer },
-        { title: 'Cost in credits', value: DataVehicleInfo.cost_in_credits },
-        { title: 'Length', value: DataVehicleInfo.length },
-        { title: 'Max atmosphering speed', value: DataVehicleInfo.max_atmosphering_speed },
-        { title: 'Crew', value: DataVehicleInfo.crew },
-        { title: 'Passengers', value: DataVehicleInfo.passengers },
-        { title: 'Cargo capacity' , value: DataVehicleInfo.cargo_capacity },
-        { title: 'Consumables' , value: DataVehicleInfo.consumables },
-        { title: 'Vehicle_class' , value: DataVehicleInfo.vehicle_class }
+    const infoStarship = [
+        { title: 'Name', value: DataStarshipInfo.name },
+        { title: 'Model', value: DataStarshipInfo.model},
+        { title: 'Manufacturer', value: DataStarshipInfo.manufacturer },
+        { title: 'Cost in credits', value: DataStarshipInfo.cost_in_credits },
+        { title: 'Length', value: DataStarshipInfo.length },
+        { title: 'Max atmosphering speed', value: DataStarshipInfo.max_atmosphering_speed },
+        { title: 'Crew', value: DataStarshipInfo.crew },
+        { title: 'Passengers', value: DataStarshipInfo.passengers },
+        { title: 'Cargo capacity' , value: DataStarshipInfo.cargo_capacity },
+        { title: 'Consumables' , value: DataStarshipInfo.consumables },
+        { title: 'hyperdrive rating' , value: DataStarshipInfo.hyperdrive_rating },
+        { title: 'MGLT' , value: DataStarshipInfo.MGLT },
+        { title: 'Starship class' , value: DataStarshipInfo.starship_class }
     ]
 
 
     return (
         loading ? 
-            <ActivityIndicator size="large" color="#0000ff" />
+            <Loading/>
         :
-            <ImageBackground style={{flex:1}} source={{uri:"https://e0.pxfuel.com/wallpapers/260/732/desktop-wallpaper-apple-iphone-14-pro-14-pro-max.jpg"}}>
+            <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/562/505/desktop-wallpaper-paulina-dubec-on-iphone-in-2020-star-wars-minimalist-phone.jpg"}}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
-                        {infoVehicle.map((vehicle, index) => (
+                        {infoStarship.map((vehicle, index) => (
                             <Text style={styles.moreInfoText} key={index}>
                                 <Text style={styles.moreInfoTitle}>
                                     {vehicle.title}:{'\u00A0'}
@@ -97,14 +99,11 @@ export default function Vehicle ({route , navigation}) {
                                 {vehicle.value}
                             </Text>
                         ))}
-                        {/* <TouchableOpacity onPress={()=>navigation.navigate('Planet', {planetInfo: DataVehicleInfo.homeworld})} style={{backgroundColor:"#8AC5D3" , alignSelf:"flex-start" , padding:7 , borderRadius:7 , marginVertical: 5}}>
-                            <Text style={{color:"black" , fontWeight:700 , fontSize:16}}>Home World</Text>
-                        </TouchableOpacity> */}
                         <View>
                             <View style={{paddingVertical:5}}>
                                 <Text style={styles.moreInfoTitle}>Films:</Text>
-                                    {DataVehicleInfo.films.map((film , index) => (
-                                        <TouchableOpacity style={{marginVertical:1}} key={index}>
+                                    {DataStarshipInfo.films.map((film , index) => (
+                                        <TouchableOpacity onPress={()=>navigation.navigate('Film', {filmInfo: film})} style={{marginVertical:1}} key={index}>
                                             <Text style={{color:"white" , fontSize:16 , fontWeight:600}} >{nameFilms[film]}</Text>
                                         </TouchableOpacity>
                                     ))}

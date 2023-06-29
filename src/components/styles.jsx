@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
         fontSize:18, 
         fontWeight:800,
         color:"#8AC5D3"
+    },
+    loading: {
+        flex:1 , 
+        justifyContent:"center" , 
+        alignItems:"center"
     }
 });
 

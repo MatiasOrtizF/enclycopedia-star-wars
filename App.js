@@ -1,12 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Home from './src/componentes/main'
-import MoreInfo from './src/componentes/More-Info'
-import Planet from './src/componentes/Planet'
-import Film from './src/componentes/Film'
-import Vehicle from './src/componentes/Vehicle'
-import Specie from './src/componentes/Specie'
-import Starship from './src/componentes/Startship'
+import Home from './src/components/Main'
+import MoreInfo from './src/components/More-Info'
+import Planet from './src/components/Planet'
+import Film from './src/components/Film'
+import Vehicle from './src/components/Vehicle'
+import Specie from './src/components/Specie'
+import Starship from './src/components/Startship'
 
 const Stack = createStackNavigator();
 
