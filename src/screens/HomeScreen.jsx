@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import styles from './styles'
-import Constants  from 'expo-constants'
+import Constants  from 'expo-constants';
+import { useEffect , useState } from 'react';
+import { ImageBackground , ScrollView , Text , TouchableOpacity, View } from 'react-native';
+import styles from '../components/styles'
 
-export default function Main ({navigation}) {
+export default function HomeScreen ({navigation}) {
     const [datas , setDatas] = useState([])
     const [dataLoaded , setDataLoaded] = useState(false)
     const [dataApi , setDataAPi] = useState([])
@@ -50,12 +50,6 @@ export default function Main ({navigation}) {
                 <View style={{marginTop: Constants.statusBarHeight}}>
                     <ImageBackground source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/885/847/desktop-wallpaper-22-de-star-wars-pro-seu-celular-star-wars-mobile.jpg"}}>
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <View style={styles.container}>
-                                <TextInput
-                                style={{backgroundColor:"#ffff" , color:"#ffff" , padding:7 , borderRadius:7 , marginTop:15}}
-                                placeholder='Buscar Personaje'
-                                />
-                            </View>
                             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                                 {menuItems.map((item , index)=> (
                                 <TouchableOpacity style={styles.buttons} key={index}>
@@ -71,7 +65,7 @@ export default function Main ({navigation}) {
                                         <View style={{flexDirection:"row" , justifyContent:"space-between"}}>
                                             <Text style={{color:"white" , fontWeight:400 , fontSize:15}}>{data.height}</Text>
                                             <TouchableOpacity>
-                                                <Text onPress={()=>navigation.navigate('MoreInfo', {peopleInfo: data.url})} style={{color:"orange" , fontWeight:600 , fontSize:15}}>More Info</Text>
+                                                <Text onPress={()=>navigation.navigate('MoreInfoScreen', {peopleInfo: data.url})} style={{color:"orange" , fontWeight:600 , fontSize:15}}>More Info</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
