@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { useEffect , useState } from 'react';
 import { ImageBackground , ScrollView , Text , TouchableOpacity , View } from 'react-native';
 import styles from '../components/styles'
@@ -41,7 +42,9 @@ export default function MoreInfoScreen  ({route , navigation}) {
     ]
 
     return (
-        uploadedDataPeopleInfo ? 
+        <>
+        <StatusBar style="auto"/>
+        {uploadedDataPeopleInfo ? 
             <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/656/769/desktop-wallpaper-minimalist-star-wars-iphone-star-wars-phone-minimalist.jpg"}}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
@@ -67,5 +70,7 @@ export default function MoreInfoScreen  ({route , navigation}) {
             </ImageBackground>
         :
             <Loading/>
+        }
+        </>
     );
 }

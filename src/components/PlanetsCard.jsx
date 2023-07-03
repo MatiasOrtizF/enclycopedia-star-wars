@@ -2,18 +2,23 @@ import { useEffect , useState } from 'react';
 import { Text , TouchableOpacity , View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles'
-import Loading from './Loading'
+import Loading from './Loading';
 
 export default function PlanetsCard (props) {
     const navigation = useNavigation();
     const [planetsName, setPlanetsName] = useState([])
     const [uploadedPlanetsName , setUploadedPlanetsName] = useState(false)
 
-
     useEffect(() => {
         planets();
         setPlanetsName([])
     } , []);
+
+    useEffect(() => {
+        if(planetsName.length==props.planets.length) {
+            setUploadedPlanetsName(true)
+        }
+    } , [planetsName]);
 
     callApiPlanets= (species) => {
         fetch(species)
@@ -25,7 +30,6 @@ export default function PlanetsCard (props) {
                         ...data
                     }
                 ]))
-                setUploadedPlanetsName(true)
         })
     }
 
@@ -40,13 +44,17 @@ export default function PlanetsCard (props) {
     }
 
     return (
-        <View style={{paddingVertical:5}}>
+        <View style={styles.cardContainer}>
             <Text style={styles.moreInfoTitle}>Planets:</Text>
-                {planetsName.map((planet , index) => (
-                    <TouchableOpacity onPress={()=>navigation.navigate('PlanetScreen', {planetInfo: planet.url})} style={{marginVertical:1}} key={index}>
-                        <Text style={{color:"white" , fontSize:16 , fontWeight:600}} >{planet.name}</Text>
+            {uploadedPlanetsName ?
+                planetsName.map((planet , index) => (
+                    <TouchableOpacity style={styles.cardGap} key={index} onPress={()=>navigation.navigate('PlanetScreen', {planetInfo: planet.url})}>
+                        <Text style={styles.cardText} >{planet.name}</Text>
                     </TouchableOpacity>
-                ))}
+                ))
+            :
+                <Loading/>
+            }
         </View>
     );
 }

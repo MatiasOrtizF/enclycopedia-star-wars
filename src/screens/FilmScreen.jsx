@@ -10,6 +10,7 @@ import SpeciesCard from '../components/SpeciesCard'
 
 export default function FilmScreen ({route}) {
     const {filmInfo} = route.params
+
     const [dataFilmInfo , setDataFilmInfo] = useState([])
     const [uploadedDataFilmInfo, setUploadedDataFilmInfo] = useState(false)
 

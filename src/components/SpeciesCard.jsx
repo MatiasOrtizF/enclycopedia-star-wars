@@ -2,17 +2,23 @@ import { useEffect , useState } from 'react';
 import { Text , TouchableOpacity , View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../components/styles'
-import Loading from '../components/Loading'
+import Loading from './Loading';
 
-export default function SpeciesCard  (dataPeopleInfo) {
+export default function SpeciesCard  (props) {
     const navigation = useNavigation();
     const [speciesName, setSpeciesName] = useState([])
-    const [uploadedSpeciesName, setUploadedSpeciesName ] = useState(false)
+    const [uploadedSpeciesName , setUploadedSpeciesName] = useState(false)
 
     useEffect(() => {
         species();
         setSpeciesName([])
     } , []);
+
+    useEffect(() => {
+        if(speciesName.length==props.species.length) {
+            setUploadedSpeciesName(true)
+        }
+    } , [speciesName]);
 
     callApiSpecies = (species) => {
         fetch(species)
@@ -24,13 +30,12 @@ export default function SpeciesCard  (dataPeopleInfo) {
                         ...data
                     }
                 ]))
-                setUploadedSpeciesName(true)
         })
     }
 
     species = () => {
-        if(dataPeopleInfo.species.length>0) {
-            dataPeopleInfo.species.map((species)=> (
+        if(props.species.length>0) {
+            props.species.map((species)=> (
                 callApiSpecies(species)
             ))
         } else {
@@ -39,13 +44,17 @@ export default function SpeciesCard  (dataPeopleInfo) {
     }
 
     return (
-        <View style={{paddingVertical:5}}>
+        <View style={styles.cardContainer}>
             <Text style={styles.moreInfoTitle}>Species:</Text>
-                {speciesName.map((specie) => (
-                    <TouchableOpacity onPress={()=>navigation.navigate('SpecieScreen', {specieInfo: specie.url})}>
-                        <Text style={{color:"white" , fontSize:15 , fontWeight:600}}>{specie.name}</Text>
+            {uploadedSpeciesName ?
+                speciesName.map((specie , index) => (
+                    <TouchableOpacity style={styles.cardGap} key={index} onPress={()=>navigation.navigate('SpecieScreen', {specieInfo: specie.url})}>
+                        <Text style={styles.cardText}>{specie.name}</Text>
                     </TouchableOpacity>
-                ))}
+                ))
+            :
+                <Loading/>
+            }
         </View>
     );
 }

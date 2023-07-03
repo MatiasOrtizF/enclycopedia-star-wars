@@ -5,7 +5,7 @@ import Loading from '../components/Loading'
 import FilmsCard from '../components/FilmsCard'
 import PeopleCard from '../components/PeopleCard'
 
-export default function StarshipScreen (route) {
+export default function StarshipScreen ({route}) {
     const {starshipInfo} = route.params
     const [DataStarshipInfo , setDataStarshipInfo] = useState([])
     const [uploadedDataStarshipInfo, setUploadedDataStarshipInfo] = useState(false)
@@ -46,12 +46,12 @@ export default function StarshipScreen (route) {
             <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/562/505/desktop-wallpaper-paulina-dubec-on-iphone-in-2020-star-wars-minimalist-phone.jpg"}}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
-                        {infoStarship.map((vehicle, index) => (
+                        {infoStarship.map((starhip, index) => (
                             <Text style={styles.moreInfoText} key={index}>
                                 <Text style={styles.moreInfoTitle}>
-                                    {vehicle.title}:{'\u00A0'}
+                                    {starhip.title}:{'\u00A0'}
                                 </Text>
-                                {vehicle.value}
+                                {starhip.value}
                             </Text>
                         ))}
                         <View>

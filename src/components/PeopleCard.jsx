@@ -2,19 +2,23 @@ import { useEffect , useState } from 'react';
 import { Text , TouchableOpacity , View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles'
-import Loading from './Loading'
+import Loading from './Loading';
 
 export default function PeopleCard (props) {
     const navigation = useNavigation();
     const [peopleName , setPeopleName] = useState([])
-    const [uploadedpeopleName , setUploadedPeopleName] = useState(false)
-
+    const [uploadedPeopleName , setUploadedPeopleName] = useState(false)
 
     useEffect(() => {
         people();
         setPeopleName([])
-        console.log(props)
     } , []);
+
+    useEffect(() => {
+        if(peopleName.length==props.people.length) {
+            setUploadedPeopleName(true)
+        }
+    } , [peopleName]);
 
     callApipeople= (people) => {
         fetch(people)
@@ -26,7 +30,6 @@ export default function PeopleCard (props) {
                         ...data
                     }
                 ]))
-                setUploadedPeopleName(true)
         })
     }
 
@@ -35,19 +38,23 @@ export default function PeopleCard (props) {
             props.people.map((people)=> (
                 callApipeople(people)
             ))
-        } else {
-            setUploadedPeopleName(true)
+        }else {
+            setUploadedPeopleName(true);
         }
     }
 
     return (
-        <View style={{paddingVertical:5}}>
+        <View style={styles.cardContainer}>
             <Text style={styles.moreInfoTitle}>{props.title}:</Text>
-            {peopleName.map((people , index) => (
-                <TouchableOpacity onPress={()=>navigation.navigate('MoreInfoScreen', {peopleInfo: people.url})} style={{marginVertical:1}} key={index}>
-                    <Text style={{color:"white" , fontSize:16 , fontWeight:600}} >{people.name}</Text>
-                </TouchableOpacity>
-            ))}
+            {uploadedPeopleName ?
+                peopleName.map((people , index) => (
+                    <TouchableOpacity style={styles.cardGap} key={index} onPress={()=>navigation.navigate('MoreInfoScreen', {peopleInfo: people.url})}>
+                        <Text style={styles.cardText} >{people.name}</Text>
+                    </TouchableOpacity>
+                ))
+            :
+                <Loading/>
+            }
         </View>
     );
 }

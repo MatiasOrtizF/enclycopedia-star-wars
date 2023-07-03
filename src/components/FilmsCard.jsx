@@ -15,11 +15,11 @@ export default function FilmsCard  (dataPeopleInfo) {
     }
 
     return (
-        <View style={{paddingVertical:5}}>
+        <View style={styles.cardContainer}>
             <Text style={styles.moreInfoTitle}>Films:</Text>
                 {dataPeopleInfo.films.map((film , index) => (
-                    <TouchableOpacity onPress={()=>navigation.navigate('FilmScreen', {filmInfo: film})} style={{marginVertical:1}} key={index}>
-                        <Text style={{color:"white" , fontSize:16 , fontWeight:600}} >{namesFilms[film]}</Text>
+                    <TouchableOpacity style={styles.cardGap} key={index} onPress={()=>navigation.navigate('FilmScreen', {filmInfo: film})}>
+                        <Text style={styles.cardText} >{namesFilms[film]}</Text>
                     </TouchableOpacity>
                 ))}
         </View>

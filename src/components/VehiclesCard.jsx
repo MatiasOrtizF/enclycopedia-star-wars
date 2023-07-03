@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles'
 import Loading from './Loading'
 
-export default function VehiclesCard  (dataPeopleInfo) {
+export default function VehiclesCard  (props) {
     const navigation = useNavigation();
     const [vehiclesName , setVehiclesName] = useState([])
     const [uploadedVehiclesName , setUploadedVehiclesName] = useState(false)
@@ -13,6 +13,12 @@ export default function VehiclesCard  (dataPeopleInfo) {
         vehicles();
         setVehiclesName([])
     } , []);
+
+    useEffect(() => {
+        if(vehiclesName.length==props.vehicles.length) {
+            setUploadedVehiclesName(true)
+        }
+    } , [vehiclesName]);
 
     callApiVehicle = (vehicle) => {
         fetch(vehicle)
@@ -24,13 +30,12 @@ export default function VehiclesCard  (dataPeopleInfo) {
                         ...data
                     }
                 ]))
-                setUploadedVehiclesName(true)
         })
     }
 
     vehicles = () => {
-        if(dataPeopleInfo.vehicles.length>0) {
-            dataPeopleInfo.vehicles.map((vehicle)=> (
+        if(props.vehicles.length>0) {
+            props.vehicles.map((vehicle)=> (
                 callApiVehicle(vehicle)
             ))
         } else {
@@ -39,16 +44,17 @@ export default function VehiclesCard  (dataPeopleInfo) {
     }
 
     return (
-        uploadedVehiclesName ? 
-            <View style={{paddingVertical:5}}>
-                <Text style={styles.moreInfoTitle}>Vehicles:</Text>
-                    {vehiclesName.map((vehicle) => (
-                        <TouchableOpacity onPress={()=>navigation.navigate('VehicleScreen', {vehicleInfo: vehicle.url})} style={{marginVertical:1}} >
-                            <Text style={{color:"white" , fontSize:16 , fontWeight:600}}>{vehicle.name}</Text>
-                        </TouchableOpacity>
-                    ))}
-            </View>
-        :
-        null
+        <View style={styles.cardContainer}>
+            <Text style={styles.moreInfoTitle}>Vehicles:</Text>
+            {uploadedVehiclesName ?
+            vehiclesName.map((vehicle , index) => (
+                <TouchableOpacity style={styles.cardGap} key={index} onPress={()=>navigation.navigate('VehicleScreen', {vehicleInfo: vehicle.url})}>
+                    <Text style={styles.cardText}>{vehicle.name}</Text>
+                </TouchableOpacity>
+            ))
+            :
+                <Loading/>
+            }
+        </View>
     );
 }
