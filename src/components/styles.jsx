@@ -15,7 +15,14 @@ const styles = StyleSheet.create({
         fontWeight:600, 
         fontSize:18
     },
-    buttons: {
+    menuActived: {
+        color:"orange", 
+        fontWeight:600, 
+        fontSize:18,
+        borderBottomWidth: 1.5,
+        borderBottomColor: 'orange'
+    },
+    buttonsMenu: {
         margin: 15,
     },
     nameHome: {
@@ -32,6 +39,11 @@ const styles = StyleSheet.create({
         color:"white", 
         fontWeight:400, 
         fontSize:15
+    },
+    buttonsTab: {
+        color:"orange", 
+        fontWeight:600, 
+        fontSize:18
     },
     moreInfoText: {
         fontSize:16,

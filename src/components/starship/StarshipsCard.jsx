@@ -1,8 +1,8 @@
 import { useEffect , useState } from 'react';
 import { Text , TouchableOpacity , View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from '../components/styles'
-import Loading from './Loading';
+import styles from '../styles'
+import Loading from '../Loading';
 
 export default function StarshipsCard (props) {
     const navigation = useNavigation();

@@ -1,9 +1,9 @@
 import { useEffect , useState } from 'react';
 import { ImageBackground , ScrollView , Text , View } from 'react-native';
-import styles from '../components/styles'
-import Loading from '../components/Loading'
-import FilmsCard from '../components/FilmsCard';
-import PeopleCard from '../components/PeopleCard';
+import styles from '../styles'
+import Loading from '../Loading'
+import FilmsCard from '../films/FilmsCard';
+import PeopleCard from '../people/PeopleCard';
 
 export default function PlanetScreen ({route}) {
     const {planetInfo} = route.params
@@ -38,7 +38,7 @@ export default function PlanetScreen ({route}) {
 
     return (
         uploadedDataPlanetInfo ? 
-            <ImageBackground style={{flex:1}} source={{uri:"https://e0.pxfuel.com/wallpapers/260/732/desktop-wallpaper-apple-iphone-14-pro-14-pro-max.jpg"}}>
+            <ImageBackground style={{flex:1}} source={require('../../assets/bg-image-planetScreen.jpg')}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
                         {infoPlanet.map((planet, index) => (

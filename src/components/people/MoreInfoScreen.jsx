@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect , useState } from 'react';
 import { ImageBackground , ScrollView , Text , TouchableOpacity , View } from 'react-native';
-import styles from '../components/styles'
-import Loading from '../components/Loading'
-import VehiclesCard from '../components/VehiclesCard'
-import SpeciesCard from '../components/SpeciesCard'
-import StarshipsCard from '../components/StarshipsCard'
-import FilmsCard from '../components/FilmsCard'
+import styles from '../styles'
+import Loading from '../Loading'
+import VehiclesCard from '../vehicles/VehiclesCard'
+import SpeciesCard from '../species/SpeciesCard'
+import StarshipsCard from '../starship/StarshipsCard'
+import FilmsCard from '../films/FilmsCard'
 
 export default function MoreInfoScreen  ({route , navigation}) {
     const {peopleInfo} = route.params
@@ -45,7 +45,7 @@ export default function MoreInfoScreen  ({route , navigation}) {
         <>
         <StatusBar style="auto"/>
         {uploadedDataPeopleInfo ? 
-            <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/656/769/desktop-wallpaper-minimalist-star-wars-iphone-star-wars-phone-minimalist.jpg"}}>
+            <ImageBackground style={{flex:1}} source={require('../../assets/bg-image-secondary.jpg')}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
                         {infoPeople.map((people, index) => (
@@ -60,7 +60,7 @@ export default function MoreInfoScreen  ({route , navigation}) {
                             <Text style={{color:"black" , fontWeight:700 , fontSize:16}}>Home World</Text>
                         </TouchableOpacity>
                         <View>
-                            <FilmsCard navigation={navigation} {...dataPeopleInfo}/>
+                            <FilmsCard {...dataPeopleInfo}/>
                             <VehiclesCard {...dataPeopleInfo}/>
                             <SpeciesCard {...dataPeopleInfo}/>
                             <StarshipsCard {...dataPeopleInfo}/>

@@ -1,9 +1,9 @@
 import { useEffect , useState } from 'react';
 import { ImageBackground , ScrollView , Text , View } from 'react-native';
-import styles from '../components/styles'
-import Loading from '../components/Loading'
-import FilmsCard from '../components/FilmsCard';
-import PeopleCard from '../components/PeopleCard'
+import styles from '../styles'
+import Loading from '../Loading'
+import FilmsCard from '../films/FilmsCard';
+import PeopleCard from '../people/PeopleCard'
 
 export default function SpecieScreen ({route , navigation}) {
     const {specieInfo} = route.params
@@ -40,7 +40,7 @@ export default function SpecieScreen ({route , navigation}) {
 
     return (
         uploadedDataSpecieInfo ? 
-            <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/125/138/desktop-wallpaper-iphone-minimalist-aesthetic-star-wars-star-wars-aesthetic.jpg"}}>
+            <ImageBackground style={{flex:1}} source={require('../../assets/bg-image-specieScreen.jpg')}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
                         {infoSpecie.map((specie, index) => (

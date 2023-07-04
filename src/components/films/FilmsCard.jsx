@@ -1,6 +1,6 @@
 import { Text , TouchableOpacity , View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from '../components/styles'
+import styles from '../styles'
 
 export default function FilmsCard  (dataPeopleInfo) {
     const navigation = useNavigation();

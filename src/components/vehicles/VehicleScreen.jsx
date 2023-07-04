@@ -1,9 +1,9 @@
 import { useEffect , useState } from 'react';
 import { ImageBackground , ScrollView , Text , View } from 'react-native';
-import styles from '../components/styles'
-import Loading from '../components/Loading'
-import FilmsCard from '../components/FilmsCard'
-import PeopleCard from '../components/PeopleCard'
+import styles from '../styles'
+import Loading from '../Loading'
+import FilmsCard from '../films/FilmsCard'
+import PeopleCard from '../people/PeopleCard'
 
 export default function VehicleScreen ({route}) {
     const {vehicleInfo} = route.params
@@ -41,7 +41,7 @@ export default function VehicleScreen ({route}) {
 
     return (
         uploadedDataVehicleInfo ?
-            <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/617/754/desktop-wallpaper-minimalist-phone-star-wars-minimal-star-trek.jpg"}}>
+            <ImageBackground style={{flex:1}} source={require('../../assets/bg-image-vehicleScreen.jpg')}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
                         {infoVehicle.map((vehicle, index) => (

@@ -1,9 +1,9 @@
 import { useEffect , useState } from 'react';
 import { ImageBackground , ScrollView , Text , View } from 'react-native';
-import styles from '../components/styles'
-import Loading from '../components/Loading'
-import FilmsCard from '../components/FilmsCard'
-import PeopleCard from '../components/PeopleCard'
+import styles from '../styles'
+import Loading from '../Loading'
+import FilmsCard from '../films/FilmsCard'
+import PeopleCard from '../people/PeopleCard'
 
 export default function StarshipScreen ({route}) {
     const {starshipInfo} = route.params
@@ -43,7 +43,7 @@ export default function StarshipScreen ({route}) {
 
     return (
         uploadedDataStarshipInfo ? 
-            <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/562/505/desktop-wallpaper-paulina-dubec-on-iphone-in-2020-star-wars-minimalist-phone.jpg"}}>
+            <ImageBackground style={{flex:1}} source={require('../../assets/bg-image-starshipScreen.jpg')}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
                         {infoStarship.map((starhip, index) => (

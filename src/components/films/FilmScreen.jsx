@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { ImageBackground , ScrollView , Text , View } from 'react-native';
-import styles from '../components/styles'
-import Loading from '../components/Loading'
-import PeopleCard from '../components/PeopleCard'
-import PlanetCard from '../components/PlanetsCard'
-import StarshipCard from '../components/StarshipsCard'
-import VehiclesCard from '../components/VehiclesCard'
-import SpeciesCard from '../components/SpeciesCard'
+import styles from '../styles'
+import Loading from '../Loading'
+import PeopleCard from '../people/PeopleCard'
+import PlanetCard from '../planets/PlanetsCard'
+import StarshipCard from '../starship/StarshipsCard'
+import VehiclesCard from '../vehicles/VehiclesCard'
+import SpeciesCard from '../species/SpeciesCard'
 
 export default function FilmScreen ({route}) {
     const {filmInfo} = route.params
@@ -39,7 +39,7 @@ export default function FilmScreen ({route}) {
 
     return (
         uploadedDataFilmInfo ? 
-            <ImageBackground style={{flex:1}} source={{uri:"https://e1.pxfuel.com/desktop-wallpaper/656/769/desktop-wallpaper-minimalist-star-wars-iphone-star-wars-phone-minimalist.jpg"}}>
+            <ImageBackground style={{flex:1}} source={require('../../assets/bg-image-secondary.jpg')}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
                         {infoFilm.map((film, index) => (
