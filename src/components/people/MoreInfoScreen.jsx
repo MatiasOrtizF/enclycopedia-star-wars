@@ -42,9 +42,7 @@ export default function MoreInfoScreen  ({route , navigation}) {
     ]
 
     return (
-        <>
-        <StatusBar style="auto"/>
-        {uploadedDataPeopleInfo ? 
+        uploadedDataPeopleInfo ? 
             <ImageBackground style={{flex:1}} source={require('../../assets/bg-image-secondary.jpg')}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{paddingVertical:10 , paddingHorizontal:25}}>
@@ -70,7 +68,5 @@ export default function MoreInfoScreen  ({route , navigation}) {
             </ImageBackground>
         :
             <Loading/>
-        }
-        </>
     );
 }

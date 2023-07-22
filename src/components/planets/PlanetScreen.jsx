@@ -7,15 +7,16 @@ import PeopleCard from '../people/PeopleCard';
 
 export default function PlanetScreen ({route}) {
     const {planetInfo} = route.params
+
     const [DataPlanetInfo , setDataPlanetInfo] = useState([])
     const [uploadedDataPlanetInfo, setUploadedDataPlanetInfo] = useState(false)
 
     useEffect(() => {
         callApi();
-        setDataPlanetInfo([]);
     } , [planetInfo]);
 
     callApi = () => {
+        setUploadedDataPlanetInfo(false)
         fetch(planetInfo)
             .then(response=>response.json())
             .then(data=> {

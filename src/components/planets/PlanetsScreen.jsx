@@ -33,7 +33,6 @@ export default function PlanetsScreen () {
                 setDatas(data.results)
                 setLoading(false)
             })
-            console.log("llamado a la api")
     }
 
     return (
