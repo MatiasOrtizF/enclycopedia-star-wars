@@ -1,12 +1,6 @@
 # [_**Enciclopedy Start Wars**_](https://matiasortizf.github.io/portfolio/ "Live app")
 
 ## Enciclopedy Start Wars
-Enciclopedia de start wars. <br>
-Hecha con React Native 
-
-
-## Toda la informacion sobre sagas
-
 "Enciclopedy Start Wars" es una aplicacion que recopila información relacionada con el universo ficticio de Star Wars.
 
 - informacion detallada sobre personas, planetas, peliculas, especies, vehiculos y starships. ℹ
@@ -15,15 +9,17 @@ Hecha con React Native
 
 - **Navigation:** Posibilidad de navegar entre distintas pantallas. 
 
+
 ## Tecnologias Utilizadas
 ### _Lenguajes_
 <p align='center'>
-    <img height="30"src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E">
+   <img height="75"src="https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-javascript-software-develop-command-language-512.png" alt="JavaScript">
 </p>
 
 ### _Librerias_
 
 - [reat-navigation] - Librería de enrutamiento y navegación.
+
 
 ## Instalación
 1. Clonar el repositorio
@@ -42,4 +38,5 @@ npm install -g expo-cli
 ```sh
 expo start
 ```
+
 [reat-navigation]: <https://reactnavigation.org/>
